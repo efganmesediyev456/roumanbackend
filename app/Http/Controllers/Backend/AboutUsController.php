@@ -3,23 +3,22 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BlogRequest;
-use App\Models\Blog;
+use App\Models\AboutUs;
 use Illuminate\Http\Request;
 
-class BlogController extends Controller
+class AboutUsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("backend.blog.index");
+        return view("backend.aboutus.index");
+
     }
 
-    public function getBlog(Request $request)
+    public function getAboutUs(Request $request)
     {
-
 
         $draw = $request->input('draw');
         $start = $request->input('start');
@@ -27,7 +26,7 @@ class BlogController extends Controller
         $order = $request->input('order');
         $search = $request->input('search');
 
-        $query = Blog::orderBy('id','desc');
+        $query = AboutUs::orderBy('id','desc');
 
         if (!empty($search['value'])) {
 //            $query->where('profit', 'like', '%' . $search['value'] . '%');
@@ -51,10 +50,10 @@ class BlogController extends Controller
                 'title'=>$operation->title,
                 'slug'=>$operation->slug,
                 'created_at' => $operation->created_at->format("Y-m-d H:i:s"),
-                'action'=>'<a href="'.route("blog.edit", $operation->id).'" class="btn btn-success">edit</a>
+                'action'=>'<a href="'.route("aboutus.edit", $operation->id).'" class="btn btn-success">edit</a>
 
 <a href="javascript::void(0)" class="btn btn-danger" onclick="$(this).next(\'form\').submit()">Delete</a>
-<form action="'.route('blog.destroy', $operation->id).'" method="post">
+<form action="'.route('aboutus.destroy', $operation->id).'" method="post">
 
 '.method_field("DELETE").'
 <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -71,29 +70,46 @@ class BlogController extends Controller
             'recordsFiltered' => $total,
             'data' => $data
         ]);
-
     }
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('backend.blog.create');
+        return view("backend.aboutus.create");
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BlogRequest $request)
+    public function store(Request $request)
     {
-        $model=new Blog();
-        $imageName=$this->uploadImage($model,$request->image,'image', 'blog');
-        $this->multiLanguageFieldsCreator($request, $model );
-        $model->image=$imageName;
-        $model->date=$request['date'];
+
+        $request->validate([
+            "image"=>"required",
+            "title.az"=>"required",
+            "content.az"=>"required",
+            "explore.az"=>"required",
+            "explore_text.az"=>"required",
+            "about_us_link.az"=>"required",
+            "status.az"=>"required",
+            "order"=>"required"
+        ]);
+        $model=new AboutUs([
+            "order"=>$request->order,
+        ]);
+
+        $upload=$request->file('image');
+        $filename=$this->uploadImage($model, $upload, "image","aboutus" );
+        $model->image=$filename;
+
+
+        $this->multiLanguageFieldsCreator($request->all(), $model);
+
         $model->save();
+
         return redirect()->back()->withSuccess("Successfully Added");
     }
 
@@ -110,8 +126,9 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $blog=Blog::find($id);
-        return view("backend.blog.edit", compact("blog"));
+        $aboutus=AboutUs::find($id);
+        return view("backend.aboutus.edit", compact("aboutus"));
+
     }
 
     /**
@@ -119,16 +136,31 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $model=Blog::find($id);
+        $request->validate([
+            "title.az"=>"required",
+            "content.az"=>"required",
+            "explore.az"=>"required",
+            "explore_text.az"=>"required",
+            "about_us_link.az"=>"required",
+            "status.az"=>"required",
+            "order"=>"required"
+        ]);
+        $model=AboutUs::find($id);
+        $model->order=$request->order;
+
         if($request->hasFile("image")){
             $upload=$request->file('image');
-            $filename=$this->uploadImage($model, $request->image, "image","blog" );
+            $filename=$this->uploadImage($model, $request->image, "image","aboutus" );
             $model->image=$filename;
         }
-        $this->multiLanguageFieldsCreator($request, $model );
-        $model->date=$request['date'];
+
+
+        $this->multiLanguageFieldsCreator($request->all(), $model);
+
         $model->save();
+
         return redirect()->back()->withSuccess("Successfully Updated");
+
     }
 
     /**
@@ -136,7 +168,7 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        Blog::destroy($id);
+        AboutUs::destroy($id);
         return redirect()->back()->withSuccess("Successfully Deleted");
 
     }

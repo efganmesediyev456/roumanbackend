@@ -3,21 +3,32 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BlogRequest;
-use App\Models\Blog;
+use App\Models\WhatWeOffer;
 use Illuminate\Http\Request;
 
-class BlogController extends Controller
+class WhatWeOfferController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("backend.blog.index");
+        return view("backend.whatweoffer.index");
+
     }
 
-    public function getBlog(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('backend.whatweoffer.create');
+
+
+    }
+
+
+    public function getWhatWeOffer(Request $request)
     {
 
 
@@ -27,7 +38,7 @@ class BlogController extends Controller
         $order = $request->input('order');
         $search = $request->input('search');
 
-        $query = Blog::orderBy('id','desc');
+        $query = WhatWeOffer::orderBy('id','desc');
 
         if (!empty($search['value'])) {
 //            $query->where('profit', 'like', '%' . $search['value'] . '%');
@@ -47,14 +58,13 @@ class BlogController extends Controller
 
             $data[] = [
                 "id"=>$operation->id,
-                'image'=>$operation->image,
                 'title'=>$operation->title,
                 'slug'=>$operation->slug,
                 'created_at' => $operation->created_at->format("Y-m-d H:i:s"),
-                'action'=>'<a href="'.route("blog.edit", $operation->id).'" class="btn btn-success">edit</a>
+                'action'=>'<a href="'.route("whatweoffer.edit", $operation->id).'" class="btn btn-success">edit</a>
 
 <a href="javascript::void(0)" class="btn btn-danger" onclick="$(this).next(\'form\').submit()">Delete</a>
-<form action="'.route('blog.destroy', $operation->id).'" method="post">
+<form action="'.route('whatweoffer.destroy', $operation->id).'" method="post">
 
 '.method_field("DELETE").'
 <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -75,26 +85,31 @@ class BlogController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('backend.blog.create');
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BlogRequest $request)
+    public function store(Request $request)
     {
-        $model=new Blog();
-        $imageName=$this->uploadImage($model,$request->image,'image', 'blog');
+        $this->validate($request,[
+            "number"=>"required",
+            "title.az"=>"required",
+            "position.az"=>"required",
+            "subtitle.az"=>"required",
+            "status.az"=>"required",
+            "order"=>"required",
+        ]);
+
+        $model=new WhatWeOffer();
+        $model->order=$request->order;
+        $model->number=$request->number;
+
+
         $this->multiLanguageFieldsCreator($request, $model );
-        $model->image=$imageName;
-        $model->date=$request['date'];
+
+
         $model->save();
-        return redirect()->back()->withSuccess("Successfully Added");
+        return redirect()->back()->withSuccess("Successfully Created");
     }
 
     /**
@@ -110,8 +125,8 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $blog=Blog::find($id);
-        return view("backend.blog.edit", compact("blog"));
+        $whatweoffer=WhatWeOffer::find($id);
+        return view("backend.whatweoffer.edit", compact("whatweoffer"));
     }
 
     /**
@@ -119,14 +134,23 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $model=Blog::find($id);
-        if($request->hasFile("image")){
-            $upload=$request->file('image');
-            $filename=$this->uploadImage($model, $request->image, "image","blog" );
-            $model->image=$filename;
-        }
+        $this->validate($request,[
+            "number"=>"required",
+            "title.az"=>"required",
+            "position.az"=>"required",
+            "subtitle.az"=>"required",
+            "status.az"=>"required",
+            "order"=>"required",
+        ]);
+
+        $model= WhatWeOffer::find($id);
+        $model->order=$request->order;
+        $model->number=$request->number;
+
+
         $this->multiLanguageFieldsCreator($request, $model );
-        $model->date=$request['date'];
+
+
         $model->save();
         return redirect()->back()->withSuccess("Successfully Updated");
     }
@@ -136,7 +160,7 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        Blog::destroy($id);
+        WhatWeOffer::destroy($id);
         return redirect()->back()->withSuccess("Successfully Deleted");
 
     }

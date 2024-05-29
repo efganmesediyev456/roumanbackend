@@ -11,23 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blogs', function (Blueprint $table) {
+        Schema::create('what_we_offers', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('date');
-            $table->string('image', 255);
+            $table->string('number', 255);
+            $table->integer("order")->nullable();
             $table->timestamps();
         });
 
-        Schema::create('blog_translations', function(Blueprint $table) {
+        Schema::create('what_we_offer_translations', function(Blueprint $table) {
             $table->id();
-            $table->foreignId('blog_id')->constrained()->onDelete('cascade');
+            $table->foreignId('what_we_offer_id')->constrained()->onDelete('cascade');
             $table->string('locale')->index()->nullable();
             $table->string('title')->nullable();
-            $table->string('slug')->nullable();
+            $table->string('content')->nullable();
+            $table->string('position')->nullable();
             $table->string('subtitle')->nullable();
-            $table->longText('content')->nullable();
             $table->tinyInteger('status');
-            $table->unique(['blog_id', 'locale']);
+            $table->unique(['what_we_offer_id', 'locale']);
         });
     }
 
@@ -36,6 +36,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('what_we_offer_translations');
+        Schema::dropIfExists('what_we_offers');
     }
 };

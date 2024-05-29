@@ -11,6 +11,7 @@
     </li>
 
 
+
 {{--    <li class="">--}}
 {{--        <a href="javascript: void(0);" class="has-arrow waves-effect">--}}
 {{--            <i class="fas fa-cogs"></i>--}}
@@ -106,6 +107,27 @@
     <li class="">
         <a href="{{route("blog.index")}}" class="waves-effect">
             <i class="fa-solid fa-user"></i><span>Blog</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="{{route("tour.index")}}" class="waves-effect">
+            <i class="fa-solid fa-user"></i><span>Tour</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="{{route("aboutus.index")}}" class="waves-effect">
+            <i class="fa-solid fa-user"></i><span>About Us</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="{{route("team.index")}}" class="waves-effect">
+            <i class="fa-solid fa-user"></i><span>Team</span>
+        </a>
+    </li>
+
+    <li class="">
+        <a href="{{route("whatweoffer.index")}}" class="waves-effect">
+            <i class="fa-solid fa-user"></i><span>What We Offer</span>
         </a>
     </li>
 

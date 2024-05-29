@@ -4,9 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DashoardController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\BannerController;
-use App\Http\Controllers\Backend\TourCategoryController;
 use App\Http\Controllers\Backend\OurStoryController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\TourCategoryController;
+use App\Http\Controllers\Backend\TourController;
+use App\Http\Controllers\Backend\AboutUsController;
+use App\Http\Controllers\Backend\TeamController;
+use App\Http\Controllers\Backend\WhatWeOfferController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +38,12 @@ Route::group(["middleware"=>"auth"], function (){
     Route::post("/admin/getOurStory",[OurStoryController::class, "getOurStory"])->name("admin.ourstory.getOurStory");
     Route::resource("/admin/blog",BlogController::class);
     Route::post("/admin/getBlog",[BlogController::class, "getBlog"])->name("admin.blog.getBlog");
+    Route::resource("/admin/tour",TourController::class);
+    Route::post("/admin/getTour",[TourController::class, "getTour"])->name("admin.tour.getTour");
+    Route::resource("/admin/aboutus",AboutUsController::class);
+    Route::post("/admin/getAboutUs",[AboutUsController::class, "getAboutUs"])->name("admin.aboutUs.getAboutUs");
+    Route::resource("/admin/team",TeamController::class);
+    Route::post("/admin/getTeam",[TeamController::class, "getTeam"])->name("admin.team.getTeam");
+    Route::resource("/admin/whatweoffer",WhatWeOfferController::class);
+    Route::post("/admin/getWhatWeOffer",[WhatWeOfferController::class, "getWhatWeOffer"])->name("admin.whatWeOffer.getWhatWeOffer");
 });

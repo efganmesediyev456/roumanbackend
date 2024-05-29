@@ -30,7 +30,7 @@ class BlogRequest extends FormRequest
             'date'=>'required',
             'title.az'=>'required',
             'slug'=>[new SlugRule(BlogTranslation::class, Blog::class, 'blog')],
-            'tags.az'=>'required',
+            'subtitle.az'=>'required',
             'content.az'=>'required',
             'status.az'=>'required',
             'image'=>$this->blog ? 'sometimes':'required'

@@ -50,20 +50,20 @@
                 <div class="navbar-brand-box">
                     <a href="/admin" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="/backend/assets/images/logo.svg" alt="" height="22">
+                                    <img data-src="/backend/assets/images/logo.svg" alt="" height="22">
                                 </span>
                         <span class="logo-lg">
-                                    <img src="/backend/assets/images/logo-dark.png" alt="" height="17">
+                                    <img data-src="/backend/assets/images/logo-dark.png" alt="" height="17">
                                 </span>
                     </a>
 
                     <a href="/admin" class="logo logo-light" style="text-align: left">
                                 <span class="logo-sm">
                                     <img style="width: 29px;
-    object-fit: contain;" src="/backend/gopanel//backend/assets/images/logo-sm.png" alt="" height="22">
+    object-fit: contain;" data-src="/backend/gopanel//backend/assets/images/logo-sm.png" alt="" height="22">
                                 </span>
                         <span class="logo-lg">
-                                    <img src="/backend/gopanel//backend/assets/images/logo2.png" alt="" height="19">
+                                    <img data-src="/backend/gopanel//backend/assets/images/logo2.png" alt="" height="19">
                                 </span>
                     </a>
                 </div>
@@ -131,7 +131,7 @@
 
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user" src="/backend/gopanel//backend/assets/images/users/avataruni.jpg"
+                        <img class="rounded-circle header-profile-user" data-src="/backend/gopanel//backend/assets/images/users/avataruni.jpg"
                              alt="Header Avatar">
                         <span class="d-none d-xl-inline-block ms-1" key="t-henry">Best1nvest</span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
@@ -235,7 +235,7 @@
 
         <div class="p-4">
             <div class="mb-2">
-                <img src="/backend/assets/images/layouts/layout-1.jpg" class="img-thumbnail" alt="layout images">
+                <img data-src="/backend/assets/images/layouts/layout-1.jpg" class="img-thumbnail" alt="layout images">
             </div>
 
             <div class="form-check form-switch mb-3">
@@ -244,7 +244,7 @@
             </div>
 
             <div class="mb-2">
-                <img src="/backend/assets/images/layouts/layout-2.jpg" class="img-thumbnail" alt="layout images">
+                <img data-src="/backend/assets/images/layouts/layout-2.jpg" class="img-thumbnail" alt="layout images">
             </div>
             <div class="form-check form-switch mb-3">
                 <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch">
@@ -252,7 +252,7 @@
             </div>
 
             <div class="mb-2">
-                <img src="/backend/assets/images/layouts/layout-3.jpg" class="img-thumbnail" alt="layout images">
+                <img data-src="/backend/assets/images/layouts/layout-3.jpg" class="img-thumbnail" alt="layout images">
             </div>
             <div class="form-check form-switch mb-3">
                 <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch">
@@ -260,7 +260,7 @@
             </div>
 
             <div class="mb-2">
-                <img src="/backend/assets/images/layouts/layout-4.jpg" class="img-thumbnail" alt="layout images">
+                <img data-src="/backend/assets/images/layouts/layout-4.jpg" class="img-thumbnail" alt="layout images">
             </div>
             <div class="form-check form-switch mb-5">
                 <input class="form-check-input theme-choice" type="checkbox" id="dark-rtl-mode-switch">

@@ -11,23 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blogs', function (Blueprint $table) {
+        Schema::create('about_us', function (Blueprint $table) {
             $table->id();
             $table->timestamp('date');
             $table->string('image', 255);
+            $table->integer("order")->default(0);
             $table->timestamps();
         });
 
-        Schema::create('blog_translations', function(Blueprint $table) {
+        Schema::create('about_us_translations', function(Blueprint $table) {
             $table->id();
-            $table->foreignId('blog_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger("about_us_id");
+            $table->foreign('about_us_id')->references("id")->on("about_us")->onDelete("cascade");
             $table->string('locale')->index()->nullable();
             $table->string('title')->nullable();
-            $table->string('slug')->nullable();
-            $table->string('subtitle')->nullable();
+            $table->string('explore')->nullable();
+            $table->string('explore_text')->nullable();
+            $table->string('about_us_link')->nullable();
             $table->longText('content')->nullable();
             $table->tinyInteger('status');
-            $table->unique(['blog_id', 'locale']);
+            $table->unique(['about_us_id', 'locale']);
         });
     }
 
@@ -36,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('about_us');
     }
 };

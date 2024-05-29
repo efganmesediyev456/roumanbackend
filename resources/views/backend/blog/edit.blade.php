@@ -73,10 +73,10 @@
                                                     </div>
 
                                                         <div class="mb-3 row">
-                                                        <label for="example-search-input" class="col-md-2 col-form-label">Tags {{$lang}}</label>
+                                                        <label for="example-search-input" class="col-md-2 col-form-label">Subtitle {{$lang}}</label>
                                                         <div class="col-md-10">
-                                                            <textarea name="tags[{{$lang}}]" id="editor1" class="form-control" rows="10" cols="80">{{$blog->translate($lang)?->tags}}</textarea>
-                                                            @error('tags.'.$lang)
+                                                            <input value="{{$blog->translate($lang)?->subtitle}}" name="subtitle[{{$lang}}]" id="editor1" class="form-control" rows="10" cols="80">
+                                                            @error('subtitle.'.$lang)
                                                             <div class="text-danger mt-2">{{$message}}</div>
                                                             @enderror
                                                         </div>

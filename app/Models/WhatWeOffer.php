@@ -7,7 +7,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Blog extends Model implements TranslatableContract
+class WhatWeOffer extends Model implements TranslatableContract
 {
     use Translatable;
     use HasFactory;
@@ -16,9 +16,8 @@ class Blog extends Model implements TranslatableContract
 
     public $translatedAttributes = [
         'title',
-        'slug',
+        'position',
         'subtitle',
-        'content',
         'status',
     ];
 }

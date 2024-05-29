@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BlogRequest;
-use App\Models\Blog;
+use App\Models\Tour;
 use Illuminate\Http\Request;
 
-class BlogController extends Controller
+class TourController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("backend.blog.index");
+        return view("backend.tour.index");
     }
 
-    public function getBlog(Request $request)
+
+    public function getTour(Request $request)
     {
 
 
@@ -27,7 +27,7 @@ class BlogController extends Controller
         $order = $request->input('order');
         $search = $request->input('search');
 
-        $query = Blog::orderBy('id','desc');
+        $query = Tour::orderBy('id','desc');
 
         if (!empty($search['value'])) {
 //            $query->where('profit', 'like', '%' . $search['value'] . '%');
@@ -51,10 +51,10 @@ class BlogController extends Controller
                 'title'=>$operation->title,
                 'slug'=>$operation->slug,
                 'created_at' => $operation->created_at->format("Y-m-d H:i:s"),
-                'action'=>'<a href="'.route("blog.edit", $operation->id).'" class="btn btn-success">edit</a>
+                'action'=>'<a href="'.route("tour.edit", $operation->id).'" class="btn btn-success">edit</a>
 
 <a href="javascript::void(0)" class="btn btn-danger" onclick="$(this).next(\'form\').submit()">Delete</a>
-<form action="'.route('blog.destroy', $operation->id).'" method="post">
+<form action="'.route('tour.destroy', $operation->id).'" method="post">
 
 '.method_field("DELETE").'
 <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -80,20 +80,41 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('backend.blog.create');
+        return view('backend.tour.create');
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BlogRequest $request)
+    public function store(Request $request)
     {
-        $model=new Blog();
-        $imageName=$this->uploadImage($model,$request->image,'image', 'blog');
-        $this->multiLanguageFieldsCreator($request, $model );
-        $model->image=$imageName;
-        $model->date=$request['date'];
+        $request->validate([
+            'image'=>"required",
+            'title.az'=>"required",
+            "price_detail.az"=>"required",
+            "duration.az"=>"required",
+            "accommodation.az"=>"required",
+            "transportation.az"=>"required",
+            "cuisine.az"=>"required",
+            "guide.az"=>"required",
+            "content.az"=>"required",
+            "status.az"=>"required",
+            "order"=>"required",
+            "price"=>"required",
+        ]);
+        $model=new Tour([
+            "order"=>$request->order,
+            "price"=>$request->price
+        ]);
+
+        $upload=$request->file('image');
+        $filename=$this->uploadImage($model, $upload, "image","tour" );
+        $model->image=$filename;
+        $this->multiLanguageFieldsCreator($request->all(), $model);
+
         $model->save();
+
         return redirect()->back()->withSuccess("Successfully Added");
     }
 
@@ -110,8 +131,9 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $blog=Blog::find($id);
-        return view("backend.blog.edit", compact("blog"));
+        $tour=Tour::find($id);
+        return view("backend.tour.edit", compact("tour"));
+
     }
 
     /**
@@ -119,15 +141,33 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $model=Blog::find($id);
+        $request->validate([
+            'title.az'=>"required",
+            "price_detail.az"=>"required",
+            "duration.az"=>"required",
+            "accommodation.az"=>"required",
+            "transportation.az"=>"required",
+            "cuisine.az"=>"required",
+            "guide.az"=>"required",
+            "content.az"=>"required",
+            "status.az"=>"required",
+            "order"=>"required",
+            "price"=>"required",
+        ]);
+        $model=Tour::find($id);
+        $model->order=$request->order;
+        $model->price=$request->price;
+
         if($request->hasFile("image")){
             $upload=$request->file('image');
-            $filename=$this->uploadImage($model, $request->image, "image","blog" );
+            $filename=$this->uploadImage($model, $request->image, "image","tour" );
             $model->image=$filename;
         }
-        $this->multiLanguageFieldsCreator($request, $model );
-        $model->date=$request['date'];
+
+        $this->multiLanguageFieldsCreator($request->all(), $model);
+
         $model->save();
+
         return redirect()->back()->withSuccess("Successfully Updated");
     }
 
@@ -136,7 +176,7 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        Blog::destroy($id);
+        Tour::destroy($id);
         return redirect()->back()->withSuccess("Successfully Deleted");
 
     }
