@@ -1,0 +1,116 @@
+.search-list {
+    position: absolute;
+    background: white;
+    border: 1px solid #e7e4e4;
+    padding: 0px 5px;
+    left: 0;
+    top: 40px;
+    min-width: 220px;
+    display: none;
+}
+
+.search-list-body ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    max-height: 240px;
+    min-height: 50px;
+    overflow-y: auto;
+}
+
+.search-list {
+    padding: 0px !important;
+}
+
+.search-list-body ul li {
+    padding: 8px 2px 5px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    position: relative;
+}
+
+.search-list-body ul li:not(:first-of-type):not(:nth-child(2)) {
+    border-bottom: 1px solid #e3e3e0;
+}
+
+.search-button-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-list-body ul li div a {
+    min-width: 30px;
+    padding: 0;
+    min-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-right: 2px;
+}
+
+@keyframes animerotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate-anime {
+    margin-right: 4px;
+    animation: animerotate 1s infinite linear;
+}
+
+#searchDriverListBody li {
+    padding: 12px;
+}
+
+#searchDriverListBody li div:nth-child(1) {
+    margin-right: 12px;
+}
+
+.nodata,
+.nodata span {
+    color: red;
+}
+
+.btn:first-letter {
+    text-transform: uppercase;
+}
+
+#sidebar-menu ul li a i {
+    font-size: 16px !important;
+}
+
+table.table-bordered.dataTable tbody tr td,
+table.table-bordered.dataTable tr td {
+    max-width: 150px;
+}
+
+table.table-bordered.dataTable tbody th,
+table.table-bordered.dataTable tbody td {
+    white-space: unset !important;
+}
+
+tr .dt-center:last-of-type,
+tr .dt-center:last-of-type a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    max-width: unset !important;
+}
+
+tr .dt-center:last-of-type a {
+    height: 30px;
+}
+
+td{
+    padding: 12px!important;
+}
