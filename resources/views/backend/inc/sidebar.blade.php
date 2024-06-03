@@ -131,6 +131,12 @@
         </a>
     </li>
 
+ <li class="">
+        <a href="{{route("city.index")}}" class="waves-effect">
+            <i class="fa-solid fa-user"></i><span>City</span>
+        </a>
+    </li>
+
 
 {{--    <li class="">--}}
 {{--        <a href="javascript: void(0);" class="has-arrow waves-effect">--}}

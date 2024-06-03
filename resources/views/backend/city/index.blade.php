@@ -1,23 +1,22 @@
 @extends("backend.layouts.layout")
 @section("css")
 
-@endsection
+     @endsection
 @section("content")
     <div class="card p-4">
 
         <div class="row">
             <div class="col-md-4">
-                <h5>Tour</h5>
+                <h5>City</h5>
             </div>
             <div class="col-md-8 d-flex justify-content-end">
-                <a class="btn btn-success mb-3 " style="width: max-content" href="{{route("tour.create")}}">Tour Create</a>
+                <a class="btn btn-success mb-3 " style="width: max-content" href="{{route("city.create")}}">City Create</a>
             </div>
         </div>
         <table id="banner" class="w-100 mb-2 table table-sm table-striped table-hover">
             <thead>
             <tr>
                 <th> Id</th>
-                <th> Image</th>
                 <th> Title</th>
                 <th>Created</th>
                 <th>Action</th>
@@ -29,7 +28,7 @@
             </tbody>
         </table>
     </div>
-@endsection
+    @endsection
 
 @push("js")
     <script>
@@ -37,7 +36,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "{{ route('admin.tour.getTour',) }}",
+                "url": "{{ route('admin.city.getCity',) }}",
                 "type": "POST",
                 "data": function(d) {
                     d._token = '{{ csrf_token() }}';
@@ -48,11 +47,10 @@
             },
             "columns": [
                 { "data": "id" },
-                { "data": "image" },
                 { "data": "title" },
                 { "data": "created_at" },
                 { "data": "action" },
             ]
         });
     </script>
-@endpush
+    @endpush

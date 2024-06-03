@@ -3,21 +3,20 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tour;
+use App\Models\City;
 use Illuminate\Http\Request;
 
-class TourController extends Controller
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("backend.tour.index");
+        return view("backend.city.index");
     }
 
-
-    public function getTour(Request $request)
+    public function getCity(Request $request)
     {
 
 
@@ -27,8 +26,7 @@ class TourController extends Controller
         $order = $request->input('order');
         $search = $request->input('search');
 
-
-        $query = Tour::orderBy('id','desc');
+        $query = City::orderBy('id','desc');
 
         if (!empty($search['value'])) {
 //            $query->where('profit', 'like', '%' . $search['value'] . '%');
@@ -52,13 +50,10 @@ class TourController extends Controller
                 'title'=>$operation->title,
                 'slug'=>$operation->slug,
                 'created_at' => $operation->created_at->format("Y-m-d H:i:s"),
-                'action'=>'
+                'action'=>'<a href="'.route("city.edit", $operation->id).'" class="btn btn-success">edit</a>
 
-                <a href="'.route("media.index").'?class='.urlencode(Tour::class).'&id='.$operation->id.'" class="btn btn-sm btn-primary">media</a>
-                <a href="'.route("tour.edit", $operation->id).'" class="btn btn-success btn-sm">edit</a>
-
-<a href="javascript::void(0)" class="btn btn-danger btn-sm" onclick="$(this).next(\'form\').submit()">Delete</a>
-<form action="'.route('tour.destroy', $operation->id).'" method="post">
+<a href="javascript::void(0)" class="btn btn-danger" onclick="$(this).next(\'form\').submit()">Delete</a>
+<form action="'.route('city.destroy', $operation->id).'" method="post">
 
 '.method_field("DELETE").'
 <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -84,7 +79,7 @@ class TourController extends Controller
      */
     public function create()
     {
-        return view('backend.tour.create');
+        return view('backend.city.create');
 
     }
 
@@ -93,32 +88,9 @@ class TourController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image'=>"required",
-            'title.az'=>"required",
-            "price_detail.az"=>"required",
-            "duration.az"=>"required",
-            "accommodation.az"=>"required",
-            "transportation.az"=>"required",
-            "cuisine.az"=>"required",
-            "guide.az"=>"required",
-            "content.az"=>"required",
-            "status.az"=>"required",
-            "order"=>"required",
-            "price"=>"required",
-        ]);
-        $model=new Tour([
-            "order"=>$request->order,
-            "price"=>$request->price
-        ]);
-
-        $upload=$request->file('image');
-        $filename=$this->uploadImage($model, $upload, "image","tour" );
-        $model->image=$filename;
-        $this->multiLanguageFieldsCreator($request->all(), $model);
-
+        $model=new City();
+        $this->multiLanguageFieldsCreator($request, $model );
         $model->save();
-
         return redirect()->back()->withSuccess("Successfully Added");
     }
 
@@ -135,9 +107,8 @@ class TourController extends Controller
      */
     public function edit(string $id)
     {
-        $tour=Tour::find($id);
-        return view("backend.tour.edit", compact("tour"));
-
+        $city=City::find($id);
+        return view("backend.city.edit", compact("city"));
     }
 
     /**
@@ -145,33 +116,9 @@ class TourController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'title.az'=>"required",
-            "price_detail.az"=>"required",
-            "duration.az"=>"required",
-            "accommodation.az"=>"required",
-            "transportation.az"=>"required",
-            "cuisine.az"=>"required",
-            "guide.az"=>"required",
-            "content.az"=>"required",
-            "status.az"=>"required",
-            "order"=>"required",
-            "price"=>"required",
-        ]);
-        $model=Tour::find($id);
-        $model->order=$request->order;
-        $model->price=$request->price;
-
-        if($request->hasFile("image")){
-            $upload=$request->file('image');
-            $filename=$this->uploadImage($model, $request->image, "image","tour" );
-            $model->image=$filename;
-        }
-
-        $this->multiLanguageFieldsCreator($request->all(), $model);
-
+        $model=City::find($id);
+        $this->multiLanguageFieldsCreator($request, $model );
         $model->save();
-
         return redirect()->back()->withSuccess("Successfully Updated");
     }
 
@@ -180,7 +127,7 @@ class TourController extends Controller
      */
     public function destroy(string $id)
     {
-        Tour::destroy($id);
+        City::destroy($id);
         return redirect()->back()->withSuccess("Successfully Deleted");
 
     }

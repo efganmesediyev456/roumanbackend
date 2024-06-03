@@ -11,6 +11,8 @@ use App\Http\Controllers\Backend\TourController;
 use App\Http\Controllers\Backend\AboutUsController;
 use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\WhatWeOfferController;
+use App\Http\Controllers\Backend\CityController;
+use App\Http\Controllers\Backend\MediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,4 +48,8 @@ Route::group(["middleware"=>"auth"], function (){
     Route::post("/admin/getTeam",[TeamController::class, "getTeam"])->name("admin.team.getTeam");
     Route::resource("/admin/whatweoffer",WhatWeOfferController::class);
     Route::post("/admin/getWhatWeOffer",[WhatWeOfferController::class, "getWhatWeOffer"])->name("admin.whatWeOffer.getWhatWeOffer");
+    Route::resource("/admin/city",CityController::class);
+    Route::post("/admin/getCity",[CityController::class, "getCity"])->name("admin.city.getCity");
+    Route::resource("/admin/media", MediaController::class);
+    Route::post("/admin/media/getMedia", [MediaController::class,'getMedia'])->name("admin.media.getMedia");
 });

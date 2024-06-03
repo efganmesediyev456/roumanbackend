@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->integer("order")->default(0);
             $table->double('price', 11,2)->nullable();
-
             $table->timestamps();
         });
         Schema::create('tour_translations', function(Blueprint $table) {
