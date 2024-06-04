@@ -111,6 +111,24 @@
 
 
                                                     <div class="mb-3 row">
+                                                        <label for="example-search-input" class="col-md-2 col-form-label"> Blog Category</label>
+                                                        <div class="col-md-10">
+
+                                                            <select name="blog_category_id" class="form-control form-control-lg" id="formFileLg">
+                                                                @foreach($blogcategories as $category)
+                                                                    <option value="{{$category->id}}">{{$category->title}}</option>
+                                                                @endforeach
+                                                            </select>
+
+                                                            @error('blog_category_id')
+                                                            <div class="text-danger mt-2">{{$message}}</div>
+                                                            @enderror
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="mb-3 row">
                                                         <label for="example-search-input" class="col-md-2 col-form-label"> Image</label>
                                                         <div class="col-md-10">
 

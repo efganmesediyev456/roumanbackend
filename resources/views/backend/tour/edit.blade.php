@@ -125,6 +125,8 @@
                            </div>
 
 
+
+
                            <div class="mb-3 row">
                                <label for="example-email-input" class="col-md-2 col-form-label">Status</label>
                                <div class="col-md-10">
@@ -152,6 +154,44 @@
 
                        </div>
                    @endforeach
+
+
+
+
+                       <div class="mb-3 row">
+                           <label for="example-search-input" class="col-md-2 col-form-label"> Tour Category</label>
+                           <div class="col-md-10">
+
+                               <select name="tour_category_id" class="form-control">
+
+                                   @foreach($tourcategories as $category)
+                                       <option @selected($tour->tour_category_id==$category->id) value="{{ $category->id }}">{{ $category->title }}</option>
+                                   @endforeach
+                               </select>
+
+                               @error('tour_category_id')
+                               <div class="text-danger mt-2">{{$message}}</div>
+                               @enderror
+
+                           </div>
+                       </div>
+                       <div class="mb-3 row">
+                           <label for="example-search-input" class="col-md-2 col-form-label">City</label>
+                           <div class="col-md-10">
+
+                               <select name="city_id" class="form-control">
+
+                                   @foreach($cities as $category)
+                                       <option @selected($tour->city_id==$category->id) value="{{ $category->id }}">{{ $category->title }}</option>
+                                   @endforeach
+                               </select>
+
+                               @error('city_id')
+                               <div class="text-danger mt-2">{{$message}}</div>
+                               @enderror
+
+                           </div>
+                       </div>
 
 
                        <div class="mb-3 row">
@@ -193,6 +233,19 @@
 
                        </div>
                    </div>
+                       <div class="mb-3 row">
+                       <label for="example-search-input" class="col-md-2 col-form-label"> Image2</label>
+                       <div class="col-md-10">
+
+                           <input name="image2" class="form-control form-control-lg" id="formFileLg" type="file">
+
+                          <a href="/storage/tour/{{$tour->image2}}" target="_blank"> <img width="400" class="my-3" src="/storage/tour/{{$tour->image2}}" alt=""></a>
+                           @error('image2')
+                           <div class="text-danger mt-2">{{$message}}</div>
+                           @enderror
+
+                       </div>
+                   </div>
 
 
 
@@ -218,5 +271,7 @@
 
        </form>
    </div>
+
+
 
 @endsection

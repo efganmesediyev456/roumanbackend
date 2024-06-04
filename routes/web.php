@@ -13,6 +13,13 @@ use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\WhatWeOfferController;
 use App\Http\Controllers\Backend\CityController;
 use App\Http\Controllers\Backend\MediaController;
+use App\Http\Controllers\Backend\BlogCategoryController;
+
+
+
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\TourController as FrontendTourController;
+use App\Http\Controllers\Frontend\TRansportationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,4 +59,13 @@ Route::group(["middleware"=>"auth"], function (){
     Route::post("/admin/getCity",[CityController::class, "getCity"])->name("admin.city.getCity");
     Route::resource("/admin/media", MediaController::class);
     Route::post("/admin/media/getMedia", [MediaController::class,'getMedia'])->name("admin.media.getMedia");
+
+    Route::resource("/admin/blogcategory", BlogCategoryController::class);
+    Route::post("/admin/blogcategory/getBlogCategory", [BlogCategoryController::class,'getBlogCategory'])->name("admin.blogcategory.getBlogCategory");
 });
+
+
+Route::get('/', [HomeController::class,'index']);
+Route::get('/{locale?}/tours', [FrontendTourController::class,'index']);
+Route::get('/{locale?}/transportation', [TRansportationController::class,'index']);
+

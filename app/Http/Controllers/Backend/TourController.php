@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Tour;
+use App\Models\TourCategory;
 use Illuminate\Http\Request;
 
 class TourController extends Controller
@@ -84,7 +86,9 @@ class TourController extends Controller
      */
     public function create()
     {
-        return view('backend.tour.create');
+        $cities=City::all();
+        $tourcategories=TourCategory::all();
+        return view('backend.tour.create', compact('tourcategories', 'cities'));
 
     }
 
@@ -95,6 +99,7 @@ class TourController extends Controller
     {
         $request->validate([
             'image'=>"required",
+            'image2'=>"required",
             'title.az'=>"required",
             "price_detail.az"=>"required",
             "duration.az"=>"required",
@@ -106,15 +111,24 @@ class TourController extends Controller
             "status.az"=>"required",
             "order"=>"required",
             "price"=>"required",
+            'tour_category_id'=>"required",
+            'city_id'=>"required",
         ]);
         $model=new Tour([
             "order"=>$request->order,
-            "price"=>$request->price
+            "price"=>$request->price,
+            "tour_category_id"=>$request->tour_category_id,
+            "city_id"=>$request->city_id,
         ]);
 
         $upload=$request->file('image');
         $filename=$this->uploadImage($model, $upload, "image","tour" );
         $model->image=$filename;
+
+        $upload=$request->file('image2');
+        $filename=$this->uploadImage($model, $upload, "image2","tour" );
+        $model->image2=$filename;
+
         $this->multiLanguageFieldsCreator($request->all(), $model);
 
         $model->save();
@@ -135,8 +149,11 @@ class TourController extends Controller
      */
     public function edit(string $id)
     {
+        $tourcategories=TourCategory::all();
+        $cities=City::all();
+
         $tour=Tour::find($id);
-        return view("backend.tour.edit", compact("tour"));
+        return view("backend.tour.edit", compact("tour", "tourcategories", "cities"));
 
     }
 
@@ -157,15 +174,27 @@ class TourController extends Controller
             "status.az"=>"required",
             "order"=>"required",
             "price"=>"required",
+            "tour_category_id"=>"required",
+            'city_id'=>"required",
+
         ]);
         $model=Tour::find($id);
         $model->order=$request->order;
         $model->price=$request->price;
+        $model->city_id=$request->city_id;
+
+        $model->tour_category_id=$request->tour_category_id;
+
 
         if($request->hasFile("image")){
             $upload=$request->file('image');
             $filename=$this->uploadImage($model, $request->image, "image","tour" );
             $model->image=$filename;
+        }
+        if($request->hasFile("image2")){
+            $upload=$request->file('image2');
+            $filename=$this->uploadImage($model, $request->image2, "image2","tour" );
+            $model->image2=$filename;
         }
 
         $this->multiLanguageFieldsCreator($request->all(), $model);

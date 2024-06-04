@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BlogRequest;
-use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\TourCategory;
 use Illuminate\Http\Request;
 
-class BlogController extends Controller
+class BlogCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("backend.blog.index");
+        return view("backend.blogcategory.index");
+
     }
 
-    public function getBlog(Request $request)
+    public function getBlogCategory(Request $request)
     {
 
 
@@ -28,7 +28,8 @@ class BlogController extends Controller
         $order = $request->input('order');
         $search = $request->input('search');
 
-        $query = Blog::orderBy('id','desc');
+
+        $query = BlogCategory::orderBy('id','desc');
 
         if (!empty($search['value'])) {
 //            $query->where('profit', 'like', '%' . $search['value'] . '%');
@@ -48,14 +49,14 @@ class BlogController extends Controller
 
             $data[] = [
                 "id"=>$operation->id,
-                'image'=>$operation->image,
                 'title'=>$operation->title,
-                'slug'=>$operation->slug,
                 'created_at' => $operation->created_at->format("Y-m-d H:i:s"),
-                'action'=>'<a href="'.route("blog.edit", $operation->id).'" class="btn btn-success">edit</a>
+                'action'=>'
 
-<a href="javascript::void(0)" class="btn btn-danger" onclick="$(this).next(\'form\').submit()">Delete</a>
-<form action="'.route('blog.destroy', $operation->id).'" method="post">
+                <a href="'.route("blogcategory.edit", $operation->id).'" class="btn btn-success btn-sm">edit</a>
+
+<a href="javascript::void(0)" class="btn btn-danger btn-sm" onclick="$(this).next(\'form\').submit()">Delete</a>
+<form action="'.route('blogcategory.destroy', $operation->id).'" method="post">
 
 '.method_field("DELETE").'
 <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -81,22 +82,29 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $blogcategories=BlogCategory::all();
-        return view('backend.blog.create', compact('blogcategories'));
+        return view('backend.blogcategory.create');
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BlogRequest $request)
+    public function store(Request $request)
     {
-        $model=new Blog();
-        $imageName=$this->uploadImage($model,$request->image,'image', 'blog');
-        $this->multiLanguageFieldsCreator($request, $model );
-        $model->image=$imageName;
-        $model->blog_category_id=$request->blog_category_id;
-        $model->date=$request['date'];
+        $request->validate([
+            'title.az'=>"required",
+            "status.az"=>"required",
+            "order"=>"required",
+        ]);
+        $model=new BlogCategory([
+            "order"=>$request->order,
+        ]);
+
+
+        $this->multiLanguageFieldsCreator($request->all(), $model);
+
         $model->save();
+
         return redirect()->back()->withSuccess("Successfully Added");
     }
 
@@ -113,10 +121,9 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $blogcategories=BlogCategory::all();
+        $blogcategory=BlogCategory::find($id);
+        return view("backend.blogcategory.edit", compact('blogcategory'));
 
-        $blog=Blog::find($id);
-        return view("backend.blog.edit", compact("blog","blogcategories"));
     }
 
     /**
@@ -124,17 +131,19 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $model=Blog::find($id);
-        if($request->hasFile("image")){
-            $upload=$request->file('image');
-            $filename=$this->uploadImage($model, $request->image, "image","blog" );
-            $model->image=$filename;
-        }
+        $request->validate([
+        'title.az'=>"required",
+        "status.az"=>"required",
+        "order"=>"required",
+    ]);
+        $model=BlogCategory::find($id);
+        $model->order=$request->order;
 
-        $this->multiLanguageFieldsCreator($request, $model );
-        $model->date=$request['date'];
-        $model->blog_category_id=$request['blog_category_id'];
+
+        $this->multiLanguageFieldsCreator($request->all(), $model);
+
         $model->save();
+
         return redirect()->back()->withSuccess("Successfully Updated");
     }
 
@@ -143,8 +152,7 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        Blog::destroy($id);
+        BlogCategory::destroy($id);
         return redirect()->back()->withSuccess("Successfully Deleted");
-
     }
 }

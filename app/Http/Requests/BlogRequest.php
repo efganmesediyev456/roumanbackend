@@ -33,6 +33,7 @@ class BlogRequest extends FormRequest
             'subtitle.az'=>'required',
             'content.az'=>'required',
             'status.az'=>'required',
+            'blog_category_id'=>'required',
             'image'=>$this->blog ? 'sometimes':'required'
         ];
     }

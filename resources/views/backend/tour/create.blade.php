@@ -191,6 +191,50 @@
 
                        </div>
                    </div>
+                       <div class="mb-3 row">
+                       <label for="example-search-input" class="col-md-2 col-form-label"> Image2</label>
+                       <div class="col-md-10">
+
+                           <input name="image2" class="form-control form-control-lg" id="formFileLg" type="file">
+
+                           @error('image2')
+                           <div class="text-danger mt-2">{{$message}}</div>
+                           @enderror
+
+                       </div>
+                   </div>
+                       <div class="mb-3 row">
+                       <label for="example-search-input" class="col-md-2 col-form-label"> Tour Category</label>
+                       <div class="col-md-10">
+
+                           <select name="tour_category_id" class="form-control form-control-lg" id="formFileLg">
+                               @foreach($tourcategories as $category)
+                               <option value="{{$category->id}}">{{$category->title}}</option>
+                                   @endforeach
+                           </select>
+
+                           @error('tour_category_id')
+                           <div class="text-danger mt-2">{{$message}}</div>
+                           @enderror
+
+                       </div>
+                   </div>
+                       <div class="mb-3 row">
+                       <label for="example-search-input" class="col-md-2 col-form-label">City</label>
+                       <div class="col-md-10">
+
+                           <select name="city_id" class="form-control form-control-lg" id="formFileLg">
+                               @foreach($cities as $city)
+                               <option value="{{$city->id}}">{{$city->title}}</option>
+                                   @endforeach
+                           </select>
+
+                           @error('tour_category_id')
+                           <div class="text-danger mt-2">{{$message}}</div>
+                           @enderror
+
+                       </div>
+                   </div>
 
 
 

@@ -136,6 +136,11 @@
             <i class="fa-solid fa-user"></i><span>City</span>
         </a>
     </li>
+    <li class="">
+        <a href="{{route("blogcategory.index")}}" class="waves-effect">
+            <i class="fa-solid fa-user"></i><span>Blog Category</span>
+        </a>
+    </li>
 
 
 {{--    <li class="">--}}
