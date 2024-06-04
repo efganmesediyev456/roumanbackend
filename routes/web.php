@@ -14,6 +14,9 @@ use App\Http\Controllers\Backend\WhatWeOfferController;
 use App\Http\Controllers\Backend\CityController;
 use App\Http\Controllers\Backend\MediaController;
 use App\Http\Controllers\Backend\BlogCategoryController;
+use App\Http\Controllers\Backend\RentCategoryController;
+use App\Http\Controllers\Backend\TransportationController as BackendTransportationController;
+use App\Http\Controllers\Backend\RentController;
 
 
 
@@ -62,6 +65,15 @@ Route::group(["middleware"=>"auth"], function (){
 
     Route::resource("/admin/blogcategory", BlogCategoryController::class);
     Route::post("/admin/blogcategory/getBlogCategory", [BlogCategoryController::class,'getBlogCategory'])->name("admin.blogcategory.getBlogCategory");
+
+    Route::resource("/admin/transportation", BackendTransportationController::class);
+    Route::post("/admin/transportation/getTransportation", [BackendTransportationController::class,'getTransportation'])->name("admin.transportation.getTransportation");
+
+    Route::resource("/admin/rentcategory", RentCategoryController::class);
+    Route::post("/admin/rentcategory/getRentCategory", [RentCategoryController::class,'getRentCategory'])->name("admin.rentcategory.getRentCategory");
+
+    Route::resource("/admin/rent", RentController::class);
+    Route::post("/admin/rent/getRent", [RentController::class,'getRent'])->name("admin.rent.getRent");
 });
 
 

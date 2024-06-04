@@ -141,6 +141,21 @@
             <i class="fa-solid fa-user"></i><span>Blog Category</span>
         </a>
     </li>
+    <li class="">
+        <a href="{{route("transportation.index")}}" class="waves-effect">
+            <i class="fa-solid fa-user"></i><span>Transportation</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="{{route("rentcategory.index")}}" class="waves-effect">
+            <i class="fa-solid fa-user"></i><span>Rent Category</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="{{route("rent.index")}}" class="waves-effect">
+            <i class="fa-solid fa-user"></i><span>Rent </span>
+        </a>
+    </li>
 
 
 {{--    <li class="">--}}
