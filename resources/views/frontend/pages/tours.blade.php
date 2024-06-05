@@ -7,13 +7,7 @@
                 <div class="logo"><img src="/assets/images/logo.png"></div>
                 <div class="header_menus">
                     <ul>
-                        <li><a href="">Home</a></li>
-                        <li><a href="">Tours</a></li>
-                        <li><a href="">Transporlation</a></li>
-                        <li><a href="">Rent</a></li>
-                        <li><a href="">Blog</a></li>
-                        <li><a href="">About Us</a></li>
-                        <li><a href="">Contact Us</a></li>
+                        @include('frontend.inc.menu')
                     </ul>
                 </div>
                 <div class="planning_and_languages">

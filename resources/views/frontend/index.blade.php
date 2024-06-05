@@ -9,13 +9,7 @@
                 <div class="logo"><img src="/frontend/assets/images/logo.png"></div>
                 <div class="header_menus">
                     <ul>
-                        <li><a href="">Home</a></li>
-                        <li><a href="">Tours</a></li>
-                        <li><a href="">Transporlation</a></li>
-                        <li><a href="">Rent</a></li>
-                        <li><a href="">Blog</a></li>
-                        <li><a href="">About Us</a></li>
-                        <li><a href="">Contact Us</a></li>
+                        @include('frontend.inc.menu')
                     </ul>
                 </div>
                 <div class="planning_and_languages">
@@ -276,7 +270,9 @@
                         </div>
                         <div class="form_group">
                             <label>Start date:</label>
-                            <div class="select_form">
+
+
+                            <div class="select_form startdate">
                                 <div class="selected"><span>Ending in:</span><span><svg width="20.000000" height="20.000000" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <desc>
                         <Created>with Pixso.</Created></desc>
@@ -306,10 +302,17 @@
 </g>
 </svg></span></div>
                             </div>
+                            <input name="startdate" style="opacity: 0; max-width: 0px; overflow: hidden" type="text" class="datepicker">
+
                         </div>
                         <div class="form_group">
                             <label>Start date:</label>
-                            <div class="select_form">
+
+
+
+
+
+                            <div class="select_form enddate">
                                 <div class="selected"><span>Ending in:</span><span><svg width="20.000000" height="20.000000" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <desc>
                         <Created>with Pixso.</Created></desc>
@@ -339,6 +342,8 @@
 </g>
 </svg></span></div>
                             </div>
+                            <input name="enddate" style="opacity: 0; max-width: 0px; overflow: hidden" type="text" class="datepicker">
+
                         </div>
                         <div class="form_group">
                             <label>Adults:</label>
@@ -424,3 +429,22 @@
 
 
     @endsection
+
+
+@push("js")
+    <script>
+        $(function(){
+            $( function() {
+                $( ".datepicker" ).datepicker({
+                    onSelect: function(dateText) {
+                       $(this).prev('div').find('.selected span:first-of-type').text(this.value)
+                    }
+                });
+
+                $(".startdate, .enddate").click(function (){
+                    $(this).next('input').focus();
+                })
+            } );
+        })
+    </script>
+    @endpush

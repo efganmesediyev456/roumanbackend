@@ -165,5 +165,10 @@
     </div>
 </footer>
 </div>
-<script defer src="/frontend/assets/js/706.js"></script><script defer src="/frontend/assets/js/main.js"></script></body>
+<script defer src="/frontend/assets/js/706.js"></script><script defer src="/frontend/assets/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+
+@stack("js")
+</body>
 </html>

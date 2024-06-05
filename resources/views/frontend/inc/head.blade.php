@@ -13,4 +13,7 @@
     <link rel="mask-icon" href="">
     <title>Rouman</title>
     <link href="/frontend/assets/css/706.css" rel="stylesheet"><link href="/frontend/assets/css/main.css" rel="stylesheet"></head>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+
 <body>

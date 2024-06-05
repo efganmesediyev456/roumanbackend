@@ -22,7 +22,10 @@ use App\Http\Controllers\Backend\RentController;
 
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\TourController as FrontendTourController;
+use App\Http\Controllers\Frontend\RentController as FrontendRentController;
+use App\Http\Controllers\Frontend\AboutUsController as FrontendAboutUsController;
 use App\Http\Controllers\Frontend\TRansportationController;
+use App\Http\Controllers\Frontend\ContactUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,4 +83,8 @@ Route::group(["middleware"=>"auth"], function (){
 Route::get('/', [HomeController::class,'index']);
 Route::get('/{locale?}/tours', [FrontendTourController::class,'index']);
 Route::get('/{locale?}/transportation', [TRansportationController::class,'index']);
+Route::get('/{locale?}/rent', [FrontendRentController::class,'index']);
+Route::get('/{locale?}/aboutus', [FrontendAboutUsController::class,'index']);
+Route::get('/{locale?}/contactus', [ContactUsController::class,'index']);
+Route::get('/{locale?}/rent/category/{id}', [FrontendRentController::class,'category'])->name('rent.category');
 

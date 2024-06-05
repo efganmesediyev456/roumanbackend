@@ -18,4 +18,10 @@ class RentCategory extends Model implements TranslatableContract
         'status',
         'title',
     ];
+
+    public function rents()
+    {
+        return $this->hasMany(Rent::class,'rent_category_id','id');
+
+    }
 }
