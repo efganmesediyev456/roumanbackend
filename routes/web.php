@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\BlogCategoryController;
 use App\Http\Controllers\Backend\RentCategoryController;
 use App\Http\Controllers\Backend\TransportationController as BackendTransportationController;
 use App\Http\Controllers\Backend\RentController;
+use App\Http\Controllers\Backend\CarController;
 
 
 
@@ -74,6 +75,9 @@ Route::group(["middleware"=>"auth"], function (){
 
     Route::resource("/admin/rent", RentController::class);
     Route::post("/admin/rent/getRent", [RentController::class,'getRent'])->name("admin.rent.getRent");
+
+    Route::resource("/admin/car", CarController::class);
+    Route::post("/admin/car/getCar", [CarController::class,'getCar'])->name("admin.car.getCar");
 });
 
 
