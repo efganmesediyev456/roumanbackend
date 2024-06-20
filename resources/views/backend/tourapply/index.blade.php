@@ -7,17 +7,18 @@
 
         <div class="row">
             <div class="col-md-4">
-                <h5>Media</h5>
+                <h5>Rent</h5>
             </div>
             <div class="col-md-8 d-flex justify-content-end">
-                <a class="btn btn-success mb-3 " style="width: max-content" href="{{route("media.create").'?class='.request()->class.'&id='.request()->id}}">Media Create</a>
+                <a class="btn btn-success mb-3 " style="width: max-content" href="{{route("rent.create")}}">Rent Create</a>
             </div>
         </div>
         <table id="banner" class="w-100 mb-2 table table-sm table-striped table-hover">
             <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
+                <th> Id</th>
+                <th> Image</th>
+                <th>Title</th>
                 <th>Created</th>
                 <th>Action</th>
             </tr>
@@ -36,12 +37,10 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "{{ route('admin.media.getMedia',) }}",
+                "url": "{{ route('admin.rent.getRent',) }}",
                 "type": "POST",
                 "data": function(d) {
                     d._token = '{{ csrf_token() }}';
-                    d.id='{{request()->id}}';
-                    d.class='{{request()->class}}';
                 }
             },
             "language": {
@@ -49,7 +48,8 @@
             },
             "columns": [
                 { "data": "id" },
-                { "data": "name" },
+                { "data": "image" },
+                { "data": "title" },
                 { "data": "created_at" },
                 { "data": "action" },
             ]

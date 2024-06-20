@@ -52,9 +52,15 @@ class BlogController extends Controller
                 'title'=>$operation->title,
                 'slug'=>$operation->slug,
                 'created_at' => $operation->created_at->format("Y-m-d H:i:s"),
-                'action'=>'<a href="'.route("blog.edit", $operation->id).'" class="btn btn-success">edit</a>
+                'action'=>'
+  <a href="'.route("media.index").'?class='.urlencode(Blog::class).'&id='.$operation->id.'" class="btn btn-sm btn-primary">media</a>
 
-<a href="javascript::void(0)" class="btn btn-danger" onclick="$(this).next(\'form\').submit()">Delete</a>
+
+                <a href="'.route("blog.edit", $operation->id).'" class="btn btn-sm btn-success">edit</a>
+
+
+
+<a href="javascript::void(0)" class="btn btn-sm btn-danger" onclick="$(this).next(\'form\').submit()">Delete</a>
 <form action="'.route('blog.destroy', $operation->id).'" method="post">
 
 '.method_field("DELETE").'

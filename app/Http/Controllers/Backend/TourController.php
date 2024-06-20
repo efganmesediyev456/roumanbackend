@@ -7,6 +7,8 @@ use App\Models\City;
 use App\Models\Tour;
 use App\Models\TourCategory;
 use Illuminate\Http\Request;
+use App\Rules\TourSlugRule;
+
 
 class TourController extends Controller
 {
@@ -97,10 +99,11 @@ class TourController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'image'=>"required",
             'image2'=>"required",
-            'title.az'=>"required",
+            'title.az'=>["required", new TourSlugRule],
             "price_detail.az"=>"required",
             "duration.az"=>"required",
             "accommodation.az"=>"required",
@@ -114,11 +117,17 @@ class TourController extends Controller
             'tour_category_id'=>"required",
             'city_id'=>"required",
         ]);
+
+        $slug = \Illuminate\Support\Str::slug($request->title['az']);
+       
+
+
         $model=new Tour([
             "order"=>$request->order,
             "price"=>$request->price,
             "tour_category_id"=>$request->tour_category_id,
             "city_id"=>$request->city_id,
+            "slug"=>$slug
         ]);
 
         $upload=$request->file('image');
@@ -163,7 +172,7 @@ class TourController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'title.az'=>"required",
+            'title.az'=>["required", new TourSlugRule($id)],
             "price_detail.az"=>"required",
             "duration.az"=>"required",
             "accommodation.az"=>"required",
@@ -183,7 +192,13 @@ class TourController extends Controller
         $model->price=$request->price;
         $model->city_id=$request->city_id;
 
+        $slug = \Illuminate\Support\Str::slug($request->title['az']);
+        $model->slug=$slug;
+
+
         $model->tour_category_id=$request->tour_category_id;
+
+
 
 
         if($request->hasFile("image")){

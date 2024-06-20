@@ -7,13 +7,7 @@
                 <div class="logo"><img src="/assets/images/logo.png"></div>
                 <div class="header_menus">
                     <ul>
-                        <li><a href="">Home</a></li>
-                        <li><a href="">Tours</a></li>
-                        <li><a href="">Transporlation</a></li>
-                        <li><a href="">Rent</a></li>
-                        <li><a href="">Blog</a></li>
-                        <li><a href="">About Us</a></li>
-                        <li><a href="">Contact Us</a></li>
+                        @include('frontend.inc.menu')
                     </ul>
                 </div>
                 <div class="planning_and_languages">
@@ -178,7 +172,7 @@
 <path id="Vector" d="M6.66 -0.34C3 -0.34 0 2.66 0 6.33C0 10.83 5.83 15.91 6.08 16.16C6.25 16.24 6.5 16.33 6.66 16.33C6.83 16.33 7.08 16.24 7.25 16.16C7.5 15.91 13.33 10.83 13.33 6.33C13.33 2.66 10.33 -0.34 6.66 -0.34ZM6.66 14.41C4.91 12.74 1.66 9.16 1.66 6.33C1.66 3.58 3.91 1.33 6.66 1.33C9.41 1.33 11.66 3.58 11.66 6.33C11.66 9.08 8.41 12.74 6.66 14.41ZM6.66 2.99C4.83 2.99 3.33 4.49 3.33 6.33C3.33 8.16 4.83 9.66 6.66 9.66C8.5 9.66 10 8.16 10 6.33C10 4.49 8.5 2.99 6.66 2.99ZM6.66 7.99C5.75 7.99 5 7.24 5 6.33C5 5.41 5.75 4.66 6.66 4.66C7.58 4.66 8.33 5.41 8.33 6.33C8.33 7.24 7.58 7.99 6.66 7.99Z" fill="#B9B9B9" fill-opacity="1.000000" fill-rule="nonzero"/>
 </svg></span><span>{{$tour->address}}</span></div>
                     <div class="tour_price">
-                        <p><span>${{$tour->price}}</span> {{$tour->price_detail}}</p><a>
+                        <p><span>${{$tour->price}}</span> {{$tour->price_detail}}</p><a href="/{{app()->getLocale().'/tours/'.$tour->slug}}">
                             <div class="animation"><span>Tour Details</span><span><svg width="50.859375" height="12.008179" viewBox="0 0 50.8594 12.0082" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <desc>
                       <Created>with Pixso.</Created></desc>

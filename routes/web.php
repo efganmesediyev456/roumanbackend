@@ -18,12 +18,19 @@ use App\Http\Controllers\Backend\RentCategoryController;
 use App\Http\Controllers\Backend\TransportationController as BackendTransportationController;
 use App\Http\Controllers\Backend\RentController;
 use App\Http\Controllers\Backend\CarController;
+use App\Http\Controllers\Backend\TourApplyController;
+
 
 
 
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\TourController as FrontendTourController;
+use App\Http\Controllers\Frontend\RentController as FrontendRentController;
+use App\Http\Controllers\Frontend\AboutUsController as FrontendAboutUsController;
 use App\Http\Controllers\Frontend\TRansportationController;
+use App\Http\Controllers\Frontend\ContactUsController;
+use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -78,10 +85,24 @@ Route::group(["middleware"=>"auth"], function (){
 
     Route::resource("/admin/car", CarController::class);
     Route::post("/admin/car/getCar", [CarController::class,'getCar'])->name("admin.car.getCar");
+
+    Route::get("/admin/tourapply", [TourApplyController::class,'index'])->name('tourapply.index');
+  Route::post("/admin/tourapply/getTourapply", [TourApplyController::class,'getTourapply'])->name("admin.tourapply.getTourapply");
 });
 
 
 Route::get('/', [HomeController::class,'index']);
 Route::get('/{locale?}/tours', [FrontendTourController::class,'index']);
+Route::post('/{locale?}/tour/apply/{id}', [FrontendTourController::class,'apply']);
+Route::get('/{locale?}/tours/{tour}', [FrontendTourController::class,'inner']);
 Route::get('/{locale?}/transportation', [TRansportationController::class,'index']);
+Route::get('/{locale?}/rent', [FrontendRentController::class,'index']);
+Route::get('/{locale?}/aboutus', [FrontendAboutUsController::class,'index']);
+Route::get('/{locale?}/news', [FrontendBlogController::class,'index']);
+Route::get('/{locale?}/news/category/{id}', [FrontendBlogController::class,'category']);
+
+Route::get('/{locale?}/news/{new}', [FrontendBlogController::class,'inner']);
+Route::get('/{locale?}/contactus', [ContactUsController::class,'index']);
+Route::get('/{locale?}/rent/category/{id}', [FrontendRentController::class,'category'])->name('rent.category');
+
 
