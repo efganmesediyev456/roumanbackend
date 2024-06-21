@@ -87,4 +87,5 @@ Route::get('/{locale?}/rent', [FrontendRentController::class,'index']);
 Route::get('/{locale?}/aboutus', [FrontendAboutUsController::class,'index']);
 Route::get('/{locale?}/contactus', [ContactUsController::class,'index']);
 Route::get('/{locale?}/rent/category/{id}', [FrontendRentController::class,'category'])->name('rent.category');
+Route::post('/{locale?}/tour/apply', [HomeController::class,'apply'])->name('tour.apply');
 

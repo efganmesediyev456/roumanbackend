@@ -2,6 +2,68 @@
 
 @section('content')
 
+    <style>
+
+        .policy{
+            transform: translateY(-4px);
+        }
+
+        .custom-checkbox {
+            display: inline-block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 22px;
+            user-select: none;
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+            border-radius: 4px;
+        }
+
+        .custom-checkbox:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        .custom-checkbox input:checked ~ .checkmark {
+            background: linear-gradient(270deg, #e23e57 48.929%, #88304e 161.42%);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .custom-checkbox .checkmark:after {
+            left: 8px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+    </style>
 
     <div class="home_header_and_slider">
         <header>
@@ -226,15 +288,17 @@
                     <form>
                         <div class="form_group">
                             <label>Full Name *</label>
-                            <input type="text" placeholder="e.g. Sanan Shirinov">
+                            <input id="fullname" type="text" placeholder="e.g. Sanan Shirinov">
                         </div>
                         <div class="form_group">
                             <label>Phone number *</label>
-                            <input type="text" placeholder="e.g. Sanan Shirinov">
+                            <input id="phone" type="text" placeholder="e.g. Sanan Shirinov">
                         </div>
+
+
                         <div class="form_group">
                             <label>Starting in:</label>
-                            <div class="select_form svg_transform">
+                            <div id="starting_in" class="select_form svg_transform">
                                 <div class="selected"><span>Starting in:</span><span><svg width="11.000000" height="7.000000" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <desc>
 </desc>
@@ -242,17 +306,16 @@
 <path id="Vector" d="M10 0.5L5 5.5L0 0.5" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="1.666667" stroke-linejoin="round" stroke-linecap="round"/>
 </svg></span></div>
                                 <div class="dropdown">
-                                    <div class="item">Starting In</div>
-                                    <div class="item">Starting In</div>
-                                    <div class="item">Starting In</div>
-                                    <div class="item">Starting In</div>
-                                    <div class="item">Starting In</div>
+                                    @foreach($tours as $tour)
+                                    <div data-id="{{$tour->id}}" class="item">{{$tour->title}}</div>
+                                        @endforeach
+
                                 </div>
                             </div>
                         </div>
                         <div class="form_group svg_transform">
                             <label>Ending in:</label>
-                            <div class="select_form">
+                            <div id="ending_in" class="select_form">
                                 <div class="selected"><span>Ending in:</span><span><svg width="11.000000" height="7.000000" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <desc>
 </desc>
@@ -260,11 +323,9 @@
 <path id="Vector" d="M10 0.5L5 5.5L0 0.5" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="1.666667" stroke-linejoin="round" stroke-linecap="round"/>
 </svg></span></div>
                                 <div class="dropdown">
-                                    <div class="item">Starting In</div>
-                                    <div class="item">Starting In</div>
-                                    <div class="item">Starting In</div>
-                                    <div class="item">Starting In</div>
-                                    <div class="item">Starting In</div>
+                                    @foreach($tours as $tour)
+                                        <div data-id="{{$tour->id}}" class="item">{{$tour->title}}</div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -302,7 +363,7 @@
 </g>
 </svg></span></div>
                             </div>
-                            <input name="startdate" style="opacity: 0; max-width: 0px; overflow: hidden" type="text" class="datepicker">
+                            <input id="startdate" style="opacity: 0; max-width: 0px; overflow: hidden" type="text" class="datepicker">
 
                         </div>
                         <div class="form_group">
@@ -342,19 +403,19 @@
 </g>
 </svg></span></div>
                             </div>
-                            <input name="enddate" style="opacity: 0; max-width: 0px; overflow: hidden" type="text" class="datepicker">
+                            <input id="enddate" style="opacity: 0; max-width: 0px; overflow: hidden" type="text" class="datepicker">
 
                         </div>
                         <div class="form_group">
                             <label>Adults:</label>
                             <div class="increase_and_decrease"><span class="minus">-</span>
-                                <input value="1" type="number"><span class="plus">+</span>
+                                <input  id="adults" value="1" type="number"><span class="plus">+</span>
                             </div>
                         </div>
                         <div class="form_group">
                             <label>Kids (0-5 years):</label>
                             <div class="increase_and_decrease"><span class="minus">-</span>
-                                <input value="1" type="number"><span class="plus">+</span>
+                                <input id="kids" value="1" type="number"><span class="plus">+</span>
                             </div>
                         </div>
                         <div class="form_group center_form">
@@ -398,14 +459,15 @@
                             </div>
                         </div>
                         <div class="form_group apply_submit">
-                            <div class="aggre"><span><svg width="15.000000" height="15.000000" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<desc>
-                      <Created>with Pixso.</Created></desc>
-<defs/>
-<rect id="Rectangle 14" y="-0.500000" rx="2.000000" width="15.000000" height="15.000000" fill="#FFFFFF" fill-opacity="1.000000"/>
-<rect id="Rectangle 14" x="0.250000" y="-0.250000" rx="2.000000" width="14.500000" height="14.500000" stroke="#B9B9B9" stroke-opacity="1.000000" stroke-width="0.500000"/>
-</svg></span><span>I have read and agree to the privacy & policy.</span></div>
-                            <button>Get a Quote</button>
+                            <div class="aggre"><span>
+                                     <label class="custom-checkbox">
+        <input id="permission" type="checkbox">
+        <span class="checkmark"></span>
+       <span class="policy">I have read and agree to the privacy & policy.</span>
+    </label>
+
+                                </span></div>
+                            <button class="apply_quote">Get a Quote</button>
                         </div>
                     </form>
                     <div class="recommendations">
@@ -444,7 +506,74 @@
                 $(".startdate, .enddate").click(function (){
                     $(this).next('input').focus();
                 })
+
+                $(".dropdown .item").click(function (e){
+
+                    var id=$(this).attr('data-id');
+                   $(this).parents('.dropdown').css({
+                       'max-height':'0'
+                   })
+                    var text=$(this).text().trim();
+                   $(this).parents('.select_form').find('.selected span:first-of-type').text(text)
+                    $(this).parents('.select_form').find('.selected').attr('data-id',id)
+                })
+                $(".select_form").hover(function (){
+                    _this=this;
+                    setTimeout(function (e){
+                        $(_this).find('.dropdown').css({
+                            'max-height':'1000px'
+                        })
+                    }, 500)
+                },
+                    function () {
+                        // Mouse leave event
+                        $(this).find('.dropdown').css({
+                            'max-height': '0px'
+                        });
+                    }
+                )
             } );
+
+            $(".apply_quote").click(function (e){
+                e.preventDefault();
+                var fullname=$("#fullname").val();
+                var phone=$("#phone").val();
+                var starting_in=$("#starting_in").find('.selected').attr('data-id');
+                var ending_in=$("#ending_in").find('.selected').attr('data-id');
+                var start_date=$('#startdate').datepicker('getDate');
+                var end_date=$('#enddate').datepicker('getDate');
+                var adults=$("#adults").val()
+                var kids=$("#kids").val()
+                var permission=$("#permission").is(":checked") ? 1 : 0;
+                var view=$(".fas.fa-star").length;
+
+
+                var formdata=new FormData();
+                formdata.append('_token','{{csrf_token()}}')
+                formdata.append('fullname',fullname)
+                formdata.append('phone',phone)
+                formdata.append('starting_in',starting_in)
+                formdata.append('end_date',end_date)
+                formdata.append('adults',adults)
+                formdata.append('kids',kids)
+                formdata.append('permission',permission)
+                formdata.append('view',view);
+
+                $.ajax({
+                    url:'{{route('tour.apply', app()->getLocale())}}',
+                    type:"post",
+                    data:formdata,
+                    processData:false,
+                    contentType:false,
+                    success:function (e){
+
+                    },
+                    error:function (e){
+
+                    }
+                })
+
+            })
         })
     </script>
     @endpush

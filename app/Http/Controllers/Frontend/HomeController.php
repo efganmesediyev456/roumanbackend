@@ -21,4 +21,9 @@ class HomeController extends Controller
         $blogs=Blog::all();
         return view('frontend.index', compact('banners', 'tours','tourcategories','ourstory', 'blogs'));
     }
+
+    public function apply()
+    {
+
+    }
 }
